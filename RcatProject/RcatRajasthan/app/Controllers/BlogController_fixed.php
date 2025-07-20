@@ -1,17 +1,6 @@
 <?php
 // Simple Blog Controller without database dependency
 
-// Define required constants for the layout
-if (!defined('SITE_NAME')) {
-    define('SITE_NAME', 'R-CAT Rajasthan');
-}
-if (!defined('SITE_DESCRIPTION')) {
-    define('SITE_DESCRIPTION', 'Leading IT training institute in Rajasthan offering professional courses');
-}
-if (!defined('SITE_URL')) {
-    define('SITE_URL', 'https://rcatrajasthan.com');
-}
-
 class BlogController {
     
     public function index() {

@@ -1,0 +1,15 @@
+# Logs Directory
+
+This directory is used for storing application logs:
+- Error logs
+- Access logs  
+- Debug logs
+- Security logs
+
+## Permissions
+This directory should have write permissions (755 or 777) for logging to work correctly.
+
+## Log Files
+- error.log - PHP and application errors
+- access.log - Page access logging
+- security.log - Security-related events

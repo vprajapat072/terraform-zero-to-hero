@@ -1,0 +1,9 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" fill="#007bff"/>
+  <circle cx="16" cy="12" r="8" fill="white" opacity="0.9"/>
+  <rect x="12" y="8" width="8" height="6" fill="#007bff" rx="1"/>
+  <line x1="13" y1="10" x2="19" y2="10" stroke="white" stroke-width="1"/>
+  <line x1="13" y1="12" x2="18" y2="12" stroke="white" stroke-width="0.5"/>
+  <polygon points="14,6 18,6 17,4 15,4" fill="#333"/>
+  <text x="16" y="28" text-anchor="middle" fill="white" font-family="Arial" font-size="8" font-weight="bold">R</text>
+</svg>

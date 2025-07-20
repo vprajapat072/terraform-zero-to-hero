@@ -1,7 +1,7 @@
 <!-- JSON-LD Schema for Course Catalog -->
-<?php if (isset($courseSchemaData)): ?>
+<?php if (isset($schema_markup)): ?>
 <script type="application/ld+json">
-<?= json_encode($courseSchemaData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>
+<?= $schema_markup ?>
 </script>
 <?php endif; ?>
 

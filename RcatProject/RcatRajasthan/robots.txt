@@ -1,0 +1,53 @@
+User-agent: *
+Allow: /
+
+# Allow all search engines to crawl the site
+Allow: /courses/
+Allow: /about
+Allow: /admission
+Allow: /blog/
+Allow: /faq
+Allow: /contact
+
+# Disallow admin and sensitive areas
+Disallow: /admin/
+Disallow: /app/
+Disallow: /database/
+Disallow: /logs/
+Disallow: /*.sql$
+Disallow: /*.log$
+Disallow: /*.conf$
+Disallow: /*.ini$
+
+# Disallow parameter-based URLs to prevent duplicate content
+Disallow: /*?*
+
+# Allow specific assets
+Allow: /assets/
+Allow: /public/
+
+# Sitemap location
+Sitemap: https://rcatrajasthan.com/sitemap.xml
+
+# Crawl delay (optional, helps with server load)
+Crawl-delay: 1
+
+# Special instructions for major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block bad bots (optional)
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+    <!-- Homepage -->
+    <url>
+        <loc>https://rcatrajasthan.com/</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- About Page -->
+    <url>
+        <loc>https://rcatrajasthan.com/about</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Courses Main Page -->
+    <url>
+        <loc>https://rcatrajasthan.com/courses</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Individual Course Pages -->
+    <url>
+        <loc>https://rcatrajasthan.com/courses/aws-solutions-architect</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://rcatrajasthan.com/courses/google-cloud-professional</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://rcatrajasthan.com/courses/microsoft-azure-fundamentals</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://rcatrajasthan.com/courses/ethical-hacking-penetration-testing</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://rcatrajasthan.com/courses/python-data-science</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://rcatrajasthan.com/courses/full-stack-web-development</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Admission Page -->
+    <url>
+        <loc>https://rcatrajasthan.com/admission</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Blog Main Page -->
+    <url>
+        <loc>https://rcatrajasthan.com/blog</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- FAQ Page -->
+    <url>
+        <loc>https://rcatrajasthan.com/faq</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- Contact Page -->
+    <url>
+        <loc>https://rcatrajasthan.com/contact</loc>
+        <lastmod>2025-07-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+</urlset>

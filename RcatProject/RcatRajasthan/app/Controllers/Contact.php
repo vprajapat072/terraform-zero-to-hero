@@ -1,21 +1,15 @@
 <?php
+require_once 'app/Config.php';
 
-namespace App\Controllers;
-
-use CodeIgniter\Controller;
-use CodeIgniter\Database\Database;
-
-class Contact extends Controller
-{
-    protected $db;
+class Contact {
+    private $pdo;
     
-    public function __construct()
-    {
-        $this->db = Database::connect();
+    public function __construct() {
+        global $pdo;
+        $this->pdo = $pdo;
     }
     
-    public function index()
-    {
+    public function index() {
         // SEO Data
         $pageTitle = "Contact Us - R-CAT Rajasthan | Get in Touch";
         $pageDescription = "Contact R-CAT Rajasthan for course inquiries, admissions, career guidance, and any questions about our technology training programs.";
@@ -30,14 +24,12 @@ class Contact extends Controller
             'map_embed' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3557.5962127156243!2d75.82221731504805!3d26.916770983144576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db5c6f1f7b2a7%3A0x62df5b7e1b4e7f8c!2sJaipur%2C%20Rajasthan!5e0!3m2!1sen!2sin!4v1634567890123!5m2!1sen!2sin'
         ];
         
-        return view('layouts/main', [
-            'content' => view('pages/contact', [
-                'contactInfo' => $contactInfo
-            ]),
-            'pageTitle' => $pageTitle,
-            'pageDescription' => $pageDescription,
-            'pageKeywords' => $pageKeywords
-        ]);
+        // Include the layout with content
+        ob_start();
+        include 'app/Views/pages/contact.php';
+        $content = ob_get_clean();
+        
+        include 'app/Views/layouts/main.php';
     }
     
     public function submit()
@@ -220,3 +212,8 @@ class Contact extends Controller
         */
     }
 }
+
+// Initialize and run
+$controller = new Contact();
+$controller->index();
+?>

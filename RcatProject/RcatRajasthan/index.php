@@ -4,6 +4,9 @@
  * Fast, Responsive, and SEO-Optimized Information Portal
  */
 
+// Load configuration files
+require_once 'app/Config.php';
+
 // Simple PHP routing for shared hosting
 $request = $_SERVER['REQUEST_URI'];
 $path = parse_url($request, PHP_URL_PATH);
@@ -28,6 +31,12 @@ switch ($path) {
         break;
     case '/blog':
         include 'app/Controllers/BlogController.php';
+        break;
+    case '/faq':
+        include 'app/Controllers/FAQController.php';
+        break;
+    case '/contact':
+        include 'app/Controllers/Contact.php';
         break;
     case '/admin':
         include 'app/Controllers/AdminController.php';

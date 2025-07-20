@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= isset($pageTitle) ? $pageTitle . ' | ' . Config::SITE_NAME : Config::SITE_NAME ?></title>
-    <meta name="description" content="<?= isset($pageDescription) ? $pageDescription : Config::SITE_DESCRIPTION ?>">
-    <meta name="keywords" content="<?= isset($pageKeywords) ? $pageKeywords : Config::DEFAULT_META_KEYWORDS ?>">
+    <title><?= isset($pageTitle) ? $pageTitle . ' | ' . SITE_NAME : SITE_NAME ?></title>
+    <meta name="description" content="<?= isset($pageDescription) ? $pageDescription : SITE_DESCRIPTION ?>">
+    <meta name="keywords" content="<?= isset($pageKeywords) ? $pageKeywords : 'R-CAT Rajasthan, IT training, courses' ?>">
     
     <!-- SEO Meta Tags -->
     <meta name="robots" content="index, follow">
-    <meta name="author" content="<?= Config::SITE_NAME ?>">
-    <link rel="canonical" href="<?= Config::SITE_URL . $_SERVER['REQUEST_URI'] ?>">
+    <meta name="author" content="<?= SITE_NAME ?>">
+    <link rel="canonical" href="<?= SITE_URL . $_SERVER['REQUEST_URI'] ?>">
     
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="<?= isset($pageTitle) ? $pageTitle : Config::SITE_NAME ?>">
-    <meta property="og:description" content="<?= isset($pageDescription) ? $pageDescription : Config::SITE_DESCRIPTION ?>">
-    <meta property="og:url" content="<?= Config::SITE_URL . $_SERVER['REQUEST_URI'] ?>">
+    <meta property="og:title" content="<?= isset($pageTitle) ? $pageTitle : SITE_NAME ?>">
+    <meta property="og:description" content="<?= isset($pageDescription) ? $pageDescription : SITE_DESCRIPTION ?>">
+    <meta property="og:url" content="<?= SITE_URL . $_SERVER['REQUEST_URI'] ?>">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="<?= Config::SITE_URL ?>/assets/images/og-image.jpg">
+    <meta property="og:image" content="<?= SITE_URL ?>/assets/images/og-image.jpg">
     
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<?= isset($pageTitle) ? $pageTitle : Config::SITE_NAME ?>">
-    <meta name="twitter:description" content="<?= isset($pageDescription) ? $pageDescription : Config::SITE_DESCRIPTION ?>">
-    <meta name="twitter:image" content="<?= Config::SITE_URL ?>/assets/images/og-image.jpg">
+    <meta name="twitter:title" content="<?= isset($pageTitle) ? $pageTitle : SITE_NAME ?>">
+    <meta name="twitter:description" content="<?= isset($pageDescription) ? $pageDescription : SITE_DESCRIPTION ?>">
+    <meta name="twitter:image" content="<?= SITE_URL ?>/assets/images/og-image.jpg">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
@@ -59,12 +59,12 @@
     <link href="/assets/css/style.css" rel="stylesheet">
     
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= Config::GOOGLE_ANALYTICS_ID ?>"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', '<?= Config::GOOGLE_ANALYTICS_ID ?>');
+        gtag('config', 'G-XXXXXXXXXX');
     </script>
     
     <!-- Schema Markup for Organization -->
@@ -133,6 +133,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/faq">FAQ</a>
                     </li>
                 </ul>
             </div>

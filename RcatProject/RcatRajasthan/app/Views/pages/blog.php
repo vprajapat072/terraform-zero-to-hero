@@ -1,17 +1,17 @@
 <!-- Hero Section -->
-<section class="hero-section" style="min-height: 40vh; padding: 60px 0;">
+<section class="hero-section">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8 mx-auto text-center">
                 <div class="hero-content">
-                    <h1 class="fade-in">Our Blog</h1>
-                    <p class="fade-in">Stay updated with the latest career guidance, industry trends, and success stories from R-CAT Rajasthan.</p>
+                    <h1 class="display-4 fade-in">R-CAT Blog</h1>
+                    <p class="lead fade-in">Stay updated with the latest career guidance, industry trends, and success stories from R-CAT Rajasthan.</p>
                     
                     <!-- Search Bar -->
                     <div class="blog-search mt-4 fade-in">
                         <div class="row justify-content-center">
                             <div class="col-md-6">
-                                <div class="input-group">
+                                <div class="input-group input-group-lg">
                                     <input type="text" class="form-control search-input" placeholder="Search articles..." id="blogSearch">
                                     <button class="btn btn-outline-light" type="button">
                                         <i class="bi bi-search"></i>
@@ -75,13 +75,13 @@
                         <div class="blog-meta mb-3">
                             <small class="text-muted">
                                 <i class="bi bi-calendar3 me-1"></i>
-                                <?= Utils::formatDate($post['published_at']) ?>
+                                <?= date('M d, Y', strtotime($post['published_at'])) ?>
                                 <span class="mx-2">•</span>
                                 <i class="bi bi-person me-1"></i>
                                 <?= htmlspecialchars($post['author_name']) ?>
                                 <span class="mx-2">•</span>
-                                <i class="bi bi-eye me-1"></i>
-                                <?= $post['views'] ?> views
+                                <i class="bi bi-tag me-1"></i>
+                                <?= htmlspecialchars($post['category_name']) ?>
                             </small>
                         </div>
                         <h5 class="card-title">
@@ -121,7 +121,7 @@
                             </span>
                             <small class="text-muted ms-2">
                                 <i class="bi bi-clock me-1"></i>
-                                <?= Utils::formatDate($post['published_at']) ?>
+                                <?= date('M d, Y', strtotime($post['published_at'])) ?>
                             </small>
                         </div>
                         
@@ -141,8 +141,8 @@
                             </div>
                             <div class="blog-stats">
                                 <small class="text-muted">
-                                    <i class="bi bi-eye me-1"></i>
-                                    <?= $post['views'] ?>
+                                    <i class="bi bi-bookmark me-1"></i>
+                                    Article
                                 </small>
                             </div>
                         </div>
@@ -152,7 +152,7 @@
                                 <i class="bi bi-book me-1"></i>
                                 Read Article
                             </a>
-                            <button class="btn btn-outline-success btn-sm ms-2" onclick="sharePost('<?= htmlspecialchars($post['title']) ?>', '<?= Config::SITE_URL ?>/blog/<?= htmlspecialchars($post['slug']) ?>')">
+                            <button class="btn btn-outline-success btn-sm ms-2" onclick="sharePost('<?= htmlspecialchars($post['title']) ?>', 'https://rcatrajasthan.com/blog/<?= htmlspecialchars($post['slug']) ?>')">>
                                 <i class="bi bi-share"></i>
                             </button>
                         </div>
@@ -289,6 +289,31 @@
 </section>
 
 <style>
+.hero-section {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    padding: 100px 0;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M20 20c0 11.046-8.954 20-20 20v-1c10.493 0 19-8.507 19-19s-8.507-19-19-19v-1c11.046 0 20 8.954 20 20z'/%3E%3C/g%3E%3C/svg%3E") repeat;
+}
+
+.section {
+    padding: 4rem 0;
+}
+
 .blog-search .form-control {
     border: 2px solid rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.1);
@@ -313,14 +338,14 @@
 }
 
 .blog-filters .filter-btn {
-    border: 2px solid var(--primary-color);
+    border: 2px solid #007bff;
     border-radius: 25px;
     transition: all 0.3s ease;
 }
 
 .blog-filters .filter-btn.active,
 .blog-filters .filter-btn:hover {
-    background: var(--primary-color);
+    background: #007bff;
     color: white;
 }
 
@@ -342,12 +367,12 @@
 }
 
 .blog-card .card-title a {
-    color: var(--dark-color);
+    color: #212529;
     transition: color 0.3s ease;
 }
 
 .blog-card .card-title a:hover {
-    color: var(--primary-color);
+    color: #007bff;
 }
 
 .blog-meta {

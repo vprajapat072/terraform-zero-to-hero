@@ -9,6 +9,12 @@ if (file_exists($db_config_file)) {
     require_once $db_config_file;
 }
 
+// Load production configuration
+$production_config_file = __DIR__ . '/production.config.php';
+if (file_exists($production_config_file)) {
+    require_once $production_config_file;
+}
+
 class Database {
     // Hostinger Database Configuration (from database.config.php)
     private $host;

@@ -1,0 +1,56 @@
+<svg width="400" height="250" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="250" fill="#f8f9fa"/>
+  
+  <!-- Building/Campus illustration -->
+  <rect x="50" y="120" width="300" height="100" fill="#007bff" opacity="0.8"/>
+  <rect x="50" y="120" width="300" height="20" fill="#0056b3"/>
+  
+  <!-- Windows -->
+  <rect x="80" y="140" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="110" y="140" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="140" y="140" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="170" y="140" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="200" y="140" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="230" y="140" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="260" y="140" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="290" y="140" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="320" y="140" width="15" height="15" fill="white" opacity="0.9"/>
+  
+  <rect x="80" y="170" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="110" y="170" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="140" y="170" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="170" y="170" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="200" y="170" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="230" y="170" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="260" y="170" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="290" y="170" width="15" height="15" fill="white" opacity="0.9"/>
+  <rect x="320" y="170" width="15" height="15" fill="white" opacity="0.9"/>
+  
+  <!-- Main entrance -->
+  <rect x="180" y="180" width="40" height="40" fill="#fff"/>
+  <rect x="185" y="185" width="30" height="30" fill="#007bff"/>
+  
+  <!-- Flag pole -->
+  <line x1="20" y1="50" x2="20" y2="220" stroke="#8B4513" stroke-width="3"/>
+  <rect x="20" y="50" width="30" height="20" fill="#FF6B35"/>
+  <rect x="20" y="60" width="30" height="10" fill="#FFF"/>
+  
+  <!-- Trees -->
+  <circle cx="370" cy="180" r="25" fill="#228B22"/>
+  <rect x="365" y="180" width="10" height="30" fill="#8B4513"/>
+  
+  <circle cx="30" cy="160" r="20" fill="#228B22"/>
+  <rect x="27" y="160" width="6" height="25" fill="#8B4513"/>
+  
+  <!-- Sign -->
+  <rect x="250" y="80" width="120" height="30" fill="#fff" stroke="#007bff" stroke-width="2"/>
+  <text x="310" y="95" text-anchor="middle" fill="#007bff" font-family="Arial" font-size="12" font-weight="bold">R-CAT Campus</text>
+  <text x="310" y="105" text-anchor="middle" fill="#666" font-family="Arial" font-size="8">Excellence in Education</text>
+  
+  <!-- Sky -->
+  <circle cx="350" cy="30" r="15" fill="#FFD700" opacity="0.8"/>
+  <circle cx="80" cy="40" r="12" fill="#fff" opacity="0.7"/>
+  <circle cx="120" cy="35" r="8" fill="#fff" opacity="0.7"/>
+  <circle cx="280" cy="45" r="10" fill="#fff" opacity="0.7"/>
+</svg>

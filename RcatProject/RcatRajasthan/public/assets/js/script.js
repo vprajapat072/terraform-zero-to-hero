@@ -264,6 +264,154 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Social Media Sharing Functions
+    function sharePost(title, url) {
+        if (navigator.share) {
+            // Use native Web Share API if available
+            navigator.share({
+                title: title,
+                url: url,
+                text: `Check out this article: ${title}`
+            }).catch(console.error);
+        } else {
+            // Fallback to custom sharing modal
+            showShareModal(title, url);
+        }
+    }
+
+    function showShareModal(title, url) {
+        const encodedTitle = encodeURIComponent(title);
+        const encodedUrl = encodeURIComponent(url);
+        const encodedText = encodeURIComponent(`Check out this article: ${title}`);
+        
+        const shareOptions = {
+            facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+            twitter: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`,
+            linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+            whatsapp: `https://wa.me/?text=${encodedText}%20${encodedUrl}`,
+            telegram: `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`,
+            email: `mailto:?subject=${encodedTitle}&body=${encodedText}%20${encodedUrl}`
+        };
+        
+        // Create modal HTML
+        const modalHTML = `
+            <div class="modal fade" id="shareModal" tabindex="-1">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Share Article</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="d-grid gap-2">
+                                <a href="${shareOptions.facebook}" target="_blank" class="btn btn-primary">
+                                    <i class="bi bi-facebook me-2"></i>Facebook
+                                </a>
+                                <a href="${shareOptions.twitter}" target="_blank" class="btn btn-info">
+                                    <i class="bi bi-twitter me-2"></i>Twitter
+                                </a>
+                                <a href="${shareOptions.linkedin}" target="_blank" class="btn btn-primary">
+                                    <i class="bi bi-linkedin me-2"></i>LinkedIn
+                                </a>
+                                <a href="${shareOptions.whatsapp}" target="_blank" class="btn btn-success">
+                                    <i class="bi bi-whatsapp me-2"></i>WhatsApp
+                                </a>
+                                <a href="${shareOptions.telegram}" target="_blank" class="btn btn-info">
+                                    <i class="bi bi-telegram me-2"></i>Telegram
+                                </a>
+                                <a href="${shareOptions.email}" class="btn btn-secondary">
+                                    <i class="bi bi-envelope me-2"></i>Email
+                                </a>
+                                <button class="btn btn-outline-primary" onclick="copyToClipboard('${url}')">
+                                    <i class="bi bi-clipboard me-2"></i>Copy Link
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Remove existing modal if any
+        const existingModal = document.getElementById('shareModal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
+        // Add modal to page
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        
+        // Show modal
+        const shareModal = new bootstrap.Modal(document.getElementById('shareModal'));
+        shareModal.show();
+        
+        // Clean up modal after it's hidden
+        document.getElementById('shareModal').addEventListener('hidden.bs.modal', function() {
+            this.remove();
+        });
+    }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+            // Show success message
+            showToast('Link copied to clipboard!', 'success');
+        }).catch(function() {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            showToast('Link copied to clipboard!', 'success');
+        });
+    }
+
+    function showToast(message, type = 'info') {
+        const toastHTML = `
+            <div class="toast align-items-center text-white bg-${type} border-0" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        `;
+        
+        let toastContainer = document.getElementById('toastContainer');
+        if (!toastContainer) {
+            toastContainer = document.createElement('div');
+            toastContainer.id = 'toastContainer';
+            toastContainer.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+            document.body.appendChild(toastContainer);
+        }
+        
+        toastContainer.insertAdjacentHTML('beforeend', toastHTML);
+        const toastElement = toastContainer.lastElementChild;
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+        
+        // Remove toast element after it's hidden
+        toastElement.addEventListener('hidden.bs.toast', function() {
+            this.remove();
+        });
+    }
+
+    // Newsletter Subscription
+    document.addEventListener('DOMContentLoaded', function() {
+        const newsletterForm = document.getElementById('newsletterForm');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                
+                // Here you would typically send to your backend
+                // For demo, we'll just show a success message
+                showToast('Thank you for subscribing to our newsletter!', 'success');
+                this.reset();
+            });
+        }
+    });
 });
 
 // CSS for animations
