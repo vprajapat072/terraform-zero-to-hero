@@ -22,11 +22,23 @@ $routes->get('/contact/track', 'Contact::track');
 
 // Admin routes
 $routes->group('admin', function($routes) {
-    $routes->get('/', 'AdminController::login');
-    $routes->get('login', 'AdminController::login');
-    $routes->post('login', 'AdminController::authenticate');
-    $routes->get('logout', 'AdminController::logout');
-    $routes->get('dashboard', 'AdminController::dashboard');
+    $routes->get('/', 'AdminAuth::login');
+    $routes->get('login', 'AdminAuth::login');
+    $routes->post('login', 'AdminAuth::login');
+    $routes->get('logout', 'AdminAuth::logout');
+    $routes->get('dashboard', 'AdminAuth::dashboard');
+    
+    // Blog admin routes
+    $routes->group('blog', function($routes) {
+        $routes->get('/', 'BlogAdmin::index');
+        $routes->get('posts', 'BlogAdmin::posts');
+        $routes->get('create', 'BlogAdmin::create');
+        $routes->post('create', 'BlogAdmin::create');
+        $routes->get('edit/(:num)', 'BlogAdmin::edit/$1');
+        $routes->post('edit/(:num)', 'BlogAdmin::edit/$1');
+        $routes->post('delete/(:num)', 'BlogAdmin::delete/$1');
+        $routes->get('categories', 'BlogAdmin::categories');
+    });
 });
 
 // SEO Routes
