@@ -13,7 +13,7 @@
                         </span>
                         <span class="date">
                             <i class="bi bi-calendar"></i>
-                            <?= date('F j, Y', strtotime($post['created_at'])) ?>
+                            <?= date('F j, Y', strtotime($post['published_at'] ?? $post['created_at'])) ?>
                         </span>
                         <span class="reading-time">
                             <i class="bi bi-clock"></i>

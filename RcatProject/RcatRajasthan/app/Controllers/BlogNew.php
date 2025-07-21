@@ -6,7 +6,7 @@ use CodeIgniter\Controller;
 use CodeIgniter\Database\Database;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
-class Blog extends Controller
+class BlogNew extends Controller
 {
     protected $db;
     
@@ -24,16 +24,16 @@ class Blog extends Controller
         $offset = ($page - 1) * $limit;
         
         // Build query conditions
-        $whereConditions = ['status = "published"'];
+        $whereConditions = ['bp.status = "published"'];
         $params = [];
         
         if ($category) {
-            $whereConditions[] = 'category = ?';
+            $whereConditions[] = 'bc.slug = ?';
             $params[] = $category;
         }
         
         if ($search) {
-            $whereConditions[] = '(title LIKE ? OR content LIKE ? OR excerpt LIKE ?)';
+            $whereConditions[] = '(bp.title LIKE ? OR bp.content LIKE ? OR bp.excerpt LIKE ?)';
             $searchTerm = '%' . $search . '%';
             $params[] = $searchTerm;
             $params[] = $searchTerm;
@@ -42,12 +42,20 @@ class Blog extends Controller
         
         $whereClause = implode(' AND ', $whereConditions);
         
-        // Get blog posts
-        $query = "SELECT * FROM blog_posts WHERE {$whereClause} ORDER BY created_at DESC LIMIT {$limit} OFFSET {$offset}";
+        // Get blog posts with category information
+        $query = "SELECT bp.*, bc.name as category_name, bc.slug as category_slug 
+                  FROM blog_posts bp 
+                  LEFT JOIN blog_categories bc ON bp.category_id = bc.id 
+                  WHERE {$whereClause} 
+                  ORDER BY bp.published_at DESC, bp.created_at DESC 
+                  LIMIT {$limit} OFFSET {$offset}";
         $posts = $this->db->query($query, $params)->getResultArray();
         
         // Get total count for pagination
-        $countQuery = "SELECT COUNT(*) as total FROM blog_posts WHERE {$whereClause}";
+        $countQuery = "SELECT COUNT(*) as total 
+                       FROM blog_posts bp 
+                       LEFT JOIN blog_categories bc ON bp.category_id = bc.id 
+                       WHERE {$whereClause}";
         $totalPosts = $this->db->query($countQuery, $params)->getRow()->total;
         
         // Get categories for filter
@@ -80,28 +88,38 @@ class Blog extends Controller
     
     public function post($slug)
     {
-        // Get the blog post
-        $post = $this->db->query('SELECT * FROM blog_posts WHERE slug = ? AND status = "published"', [$slug])->getRowArray();
+        // Get the blog post with category information
+        $post = $this->db->query(
+            'SELECT bp.*, bc.name as category_name, bc.slug as category_slug 
+             FROM blog_posts bp 
+             LEFT JOIN blog_categories bc ON bp.category_id = bc.id 
+             WHERE bp.slug = ? AND bp.status = "published"', 
+            [$slug]
+        )->getRowArray();
         
         if (!$post) {
             throw PageNotFoundException::forPageNotFound();
         }
         
+        // Increment view count
+        $this->db->query('UPDATE blog_posts SET view_count = view_count + 1 WHERE id = ?', [$post['id']]);
+        
         // Get related posts
         $relatedPosts = $this->db->query(
-            'SELECT title, slug, excerpt, featured_image FROM blog_posts 
-             WHERE category = ? AND slug != ? AND status = "published" 
-             ORDER BY created_at DESC LIMIT 3',
-            [$post['category'], $slug]
+            'SELECT bp.title, bp.slug, bp.excerpt, bp.featured_image, bc.name as category_name 
+             FROM blog_posts bp 
+             LEFT JOIN blog_categories bc ON bp.category_id = bc.id 
+             WHERE bp.category_id = ? AND bp.slug != ? AND bp.status = "published" 
+             ORDER BY bp.published_at DESC, bp.created_at DESC LIMIT 3',
+            [$post['category_id'], $slug]
         )->getResultArray();
         
         // SEO Data
-        $pageTitle = $post['title'] . ' - R-CAT Blog';
-        $pageDescription = $post['excerpt'];
-        $pageKeywords = $post['tags'];
+        $pageTitle = !empty($post['meta_title']) ? $post['meta_title'] : $post['title'] . ' - R-CAT Blog';
+        $pageDescription = !empty($post['meta_description']) ? $post['meta_description'] : $post['excerpt'];
+        $pageKeywords = !empty($post['meta_keywords']) ? $post['meta_keywords'] : $post['category_name'];
         
-        // Load SEO helper for schema markup
-        helper('SEO');
+        // Generate schema markup
         $schema_markup = $this->generateArticleSchema($post);
         
         // Breadcrumbs
@@ -127,8 +145,8 @@ class Blog extends Controller
     private function getUniqueCategories()
     {
         try {
-            $result = $this->db->query('SELECT DISTINCT category FROM blog_posts WHERE status = "published" AND category IS NOT NULL ORDER BY category')->getResultArray();
-            return array_column($result, 'category');
+            $result = $this->db->query('SELECT name, slug FROM blog_categories WHERE is_active = 1 ORDER BY sort_order, name')->getResultArray();
+            return $result;
         } catch (Exception $e) {
             return [];
         }
@@ -153,7 +171,7 @@ class Blog extends Controller
                     "url" => base_url('assets/images/logo.png')
                 ]
             ],
-            "datePublished" => date('c', strtotime($post['created_at'])),
+            "datePublished" => date('c', strtotime($post['published_at'] ?? $post['created_at'])),
             "dateModified" => date('c', strtotime($post['updated_at'])),
             "mainEntityOfPage" => [
                 "@type" => "WebPage",
