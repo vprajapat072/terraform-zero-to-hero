@@ -38,6 +38,8 @@ $routes->group('admin', function($routes) {
         $routes->post('edit/(:num)', 'BlogAdmin::edit/$1');
         $routes->post('delete/(:num)', 'BlogAdmin::delete/$1');
         $routes->get('categories', 'BlogAdmin::categories');
+        $routes->post('categories/save', 'BlogAdmin::saveCategory');
+        $routes->post('categories/update', 'BlogAdmin::updateCategory');
     });
 });
 

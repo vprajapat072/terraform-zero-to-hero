@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
-use CodeIgniter\Database\Database;
+use Config\Database;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class BlogNew extends Controller
@@ -12,7 +12,7 @@ class BlogNew extends Controller
     
     public function __construct()
     {
-        $this->db = Database::connect();
+        $this->db = \Config\Database::connect();
     }
     
     public function index()

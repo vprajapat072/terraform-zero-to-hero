@@ -191,7 +191,14 @@ class BlogAdmin extends Controller
             return redirect()->to('/admin/login');
         }
         
-        $categories = $this->db->query('SELECT * FROM blog_categories ORDER BY sort_order, name')->getResultArray();
+        // Get categories with post counts
+        $categories = $this->db->query('
+            SELECT bc.*, COUNT(bp.id) as posts_count 
+            FROM blog_categories bc 
+            LEFT JOIN blog_posts bp ON bc.id = bp.category_id 
+            GROUP BY bc.id 
+            ORDER BY bc.sort_order, bc.name
+        ')->getResultArray();
         
         $data = [
             'pageTitle' => 'Manage Categories - Admin',
@@ -199,6 +206,89 @@ class BlogAdmin extends Controller
         ];
         
         return view('admin/blog/categories', $data);
+    }
+    
+    public function saveCategory()
+    {
+        // Check if user is logged in
+        if (!$this->isLoggedIn()) {
+            return redirect()->to('/admin/login');
+        }
+        
+        if ($this->request->getMethod() === 'POST') {
+            $data = $this->request->getPost();
+            
+            // Generate slug if not provided
+            if (empty($data['slug'])) {
+                $data['slug'] = $this->generateCategorySlug($data['name']);
+            }
+            
+            // Set default values
+            $data['is_active'] = isset($data['is_active']) ? 1 : 0;
+            $data['sort_order'] = $data['sort_order'] ?? 0;
+            
+            $query = "INSERT INTO blog_categories (name, slug, description, sort_order, is_active) 
+                      VALUES (?, ?, ?, ?, ?)";
+            
+            $params = [
+                $data['name'],
+                $data['slug'],
+                $data['description'] ?? '',
+                $data['sort_order'],
+                $data['is_active']
+            ];
+            
+            if ($this->db->query($query, $params)) {
+                return redirect()->to('/admin/blog/categories')->with('success', 'Category created successfully!');
+            } else {
+                return redirect()->to('/admin/blog/categories')->with('error', 'Failed to create category.');
+            }
+        }
+        
+        return redirect()->to('/admin/blog/categories');
+    }
+    
+    public function updateCategory()
+    {
+        // Check if user is logged in
+        if (!$this->isLoggedIn()) {
+            return redirect()->to('/admin/login');
+        }
+        
+        if ($this->request->getMethod() === 'POST') {
+            $data = $this->request->getPost();
+            $id = $data['id'];
+            
+            // Generate slug if not provided
+            if (empty($data['slug'])) {
+                $data['slug'] = $this->generateCategorySlug($data['name']);
+            }
+            
+            // Set default values
+            $data['is_active'] = isset($data['is_active']) ? 1 : 0;
+            $data['sort_order'] = $data['sort_order'] ?? 0;
+            
+            $query = "UPDATE blog_categories 
+                      SET name = ?, slug = ?, description = ?, sort_order = ?, is_active = ? 
+                      WHERE id = ?";
+            
+            $params = [
+                $data['name'],
+                $data['slug'],
+                $data['description'] ?? '',
+                $data['sort_order'],
+                $data['is_active'],
+                $id
+            ];
+            
+            if ($this->db->query($query, $params)) {
+                return redirect()->to('/admin/blog/categories')->with('success', 'Category updated successfully!');
+            } else {
+                return redirect()->to('/admin/blog/categories')->with('error', 'Failed to update category.');
+            }
+        }
+        
+        return redirect()->to('/admin/blog/categories');
     }
     
     private function isLoggedIn()
@@ -343,6 +433,22 @@ class BlogAdmin extends Controller
         $counter = 1;
         
         while ($this->db->query('SELECT id FROM blog_posts WHERE slug = ?', [$slug])->getRow()) {
+            $slug = $originalSlug . '-' . $counter;
+            $counter++;
+        }
+        
+        return $slug;
+    }
+    
+    private function generateCategorySlug($name)
+    {
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name), '-'));
+        
+        // Ensure uniqueness
+        $originalSlug = $slug;
+        $counter = 1;
+        
+        while ($this->db->query('SELECT id FROM blog_categories WHERE slug = ?', [$slug])->getRow()) {
             $slug = $originalSlug . '-' . $counter;
             $counter++;
         }
